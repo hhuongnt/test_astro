@@ -49,10 +49,14 @@ class HyperSpace(window.Window):
         if symbol == key.ESCAPE:
             self.dispatch_event('on_close')
 
+    def on_mouse_enter(self, symbol, modifiers):
+        self.spaceship.x = -1600
+        self.spaceship.y = -900
+
     def on_mouse_motion(self, x, y, dx, dy):
-        if x < 1750:
+        if x < 1920:
             self.spaceship.x = x
-        if y < 1000:
+        if y < 1080:
             self.spaceship.y = y
 
 
@@ -77,6 +81,7 @@ class Fireball(pyglet.sprite.Sprite):
     def update(self):
         self.x += self.x_velocity
         # self.y -= self.y_velocity
+
 
 ###############################################################################
 class Background(pyglet.sprite.Sprite):

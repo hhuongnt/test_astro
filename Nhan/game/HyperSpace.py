@@ -25,6 +25,7 @@ sprite_end_background = pyglet.sprite.Sprite(img=end_background)
 # Event callbacks
 @window.event
 def on_draw():
+    pyglet.window.MouseCursor.draw(1600, 900)
     if end_game == False:
         window.clear()
         sprite_background.draw()
@@ -40,6 +41,10 @@ def on_draw():
 
 
 @window.event
+def on_mouse_enter(x, y):
+    sprite_spaceship.x = 1600
+    sprite_spaceship/y = 900
+
 def on_mouse_motion(x, y, dx, dy):
     sprite_spaceship.x, sprite_spaceship.y = x, y
 
