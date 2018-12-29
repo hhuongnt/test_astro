@@ -1,28 +1,35 @@
 import pyglet
 from random import randint
 window = pyglet.window.Window(fullscreen = True)
-background = pyglet.image.load('Space_background.jpg')
+background = pyglet.image.load('/tmp/guest-kx3svv/test_astro/Tuyen/Resources/Space_background.jpg')
 sprite_background = pyglet.sprite.Sprite(img=background)
-black_fire_ball = pyglet.image.load_animation('black_fire_ball.gif')
-white_fire_ball = pyglet.image.load_animation('white_fire_ball.gif')
-alien1 = pyglet.image.load_animation('alien1.gif')
-alien2 = pyglet.image.load_animation('alien2.gif')
-alien3 = pyglet.image.load_animation('alien3.gif')
+black_fire_ball = pyglet.image.load_animation('/tmp/guest-kx3svv/test_astro/Tuyen/Resources/black_fire_ball.gif')
+white_fire_ball = pyglet.image.load_animation('/tmp/guest-kx3svv/test_astro/Tuyen/Resources/white_fire_ball.gif')
+alien1 = pyglet.image.load_animation('/tmp/guest-kx3svv/test_astro/Tuyen/Resources/alien1.gif')
+alien2 = pyglet.image.load_animation('/tmp/guest-kx3svv/test_astro/Tuyen/Resources/alien2.gif')
+alien3 = pyglet.image.load_animation('/tmp/guest-kx3svv/test_astro/Tuyen/Resources/alien3.gif')
 sprite_background.scale = 0.75
 
 
 class Object(pyglet.sprite.Sprite):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.velocity_x = 10
+        self.velocity_x = 200
     def update(self):
         self.x += self.velocity_x
+        self.check_bound()
+    def check_bound(self):
+        min_x = -226/2
+        max_x = window.width + 226/2
+        if self.x < min_x or self.x > max_x:
+            self.x = randint(0, window.width/3)
+
 
 
 def random_objects(num_objects, object):
     objects = []
     for i in range(num_objects):
-        obj_x = randint(0, window.width)
+        obj_x = randint(0, window.width/3)
         obj_y = randint(0, window.height)
         new_object = Object(object)
         # new_object = pyglet.sprite.Sprite(img=object,
@@ -38,12 +45,12 @@ def update(x):
             i.update()
         for i in white_fire_balls:
             i.update()
-        # for i in white_fire_balls:
-        #     i.update()
-        # for i in aliens1:
-        #     i.update()
-        # for i in aliens2:
-        #     i.update()
+        for i in aliens1:
+            i.update()
+        for i in aliens2:
+            i.update()
+        for i in aliens3:
+            i.update()
 
 
 def draw_obj(objects):
@@ -51,11 +58,11 @@ def draw_obj(objects):
         i.draw()
 
 
-black_fire_balls = random_objects(randint(1,5), black_fire_ball)
-white_fire_balls = random_objects(randint(1,5), white_fire_ball)
-aliens1 = random_objects(randint(1,5), alien1)
-aliens2 = random_objects(randint(1,5), alien2)
-aliens3 = random_objects(randint(1,5), alien3)
+black_fire_balls = random_objects(3, black_fire_ball)
+white_fire_balls = random_objects(3, white_fire_ball)
+aliens1 = random_objects(1, alien1)
+aliens2 = random_objects(1, alien2)
+aliens3 = random_objects(1, alien3)
 # def update(random_objects, dt):
 #     object.velocity_x, object.velocity_y = 0.0, 0.0
 #     for object in random_objects:
